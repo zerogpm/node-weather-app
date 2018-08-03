@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/zerogpm/node-weather-app#readme",
   "dependencies": {
-    "request": "^2.73.0"
+    "request": "^2.87.0"
   }
 }
