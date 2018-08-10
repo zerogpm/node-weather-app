@@ -18,9 +18,11 @@ let geocodeAddress = (address, callback) => {
 
     console.log(body.status);
     if (body.status === 'OK') {
-      console.log(`Address: ${body.results[0].formatted_address}`);
-      console.log(`latitude : ${body.results[0].geometry.location.lat}`);
-      console.log(`longitude : ${body.results[0].geometry.location.lng}`);
+      callback(undefined, {
+        address: body.results[0].formatted_address,
+        latitude: body.results[0].geometry.location.lat,
+        longitude: body.results[0].geometry.location.lng
+      });
     }
   });
 };
