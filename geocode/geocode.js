@@ -1,32 +1,28 @@
-class Geocode {
-  constructor(address, request) {
-    this.address = address;
-    this.request = request;
-  }
+const request = require('request');
 
-  geocodeAddress() {
-    let address = encodeURIComponent(this.address);
-    this.request({
-      url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}`,
-      json: true
-    }, (error, response, body) => {
-      if (error) {
-        console.log('Unable to connect to Google serves.');
-        return;
-      }
+let geocodeAddress = (address, callback) => {
+  let encodedAddress = encodeURIComponent(address);
 
-      if (body.status === 'ZERO_RESULTS') {
-        console.log('Unable to find that address');
-      }
+  request({
+    url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`,
+    json: true
+  }, (error, response, body) => {
+    if (error) {
+      callback('Unable to connect to Google serves.');
+      return;
+    }
 
-      console.log(body.status);
-      if (body.status === 'OK') {
-        console.log(`Address: ${body.results[0].formatted_address}`);
-        console.log(`latitude : ${body.results[0].geometry.location.lat}`);
-        console.log(`longitude : ${body.results[0].geometry.location.lng}`);
-      }
-    });
-  }
-}
+    if (body.status === 'ZERO_RESULTS') {
+      callback('Unable to find that address');
+    }
 
-module.exports = Geocode;
+    console.log(body.status);
+    if (body.status === 'OK') {
+      console.log(`Address: ${body.results[0].formatted_address}`);
+      console.log(`latitude : ${body.results[0].geometry.location.lat}`);
+      console.log(`longitude : ${body.results[0].geometry.location.lng}`);
+    }
+  });
+};
+
+module.exports.geocodeAddress = geocodeAddress;

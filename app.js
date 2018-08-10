@@ -1,4 +1,3 @@
-const request = require('request');
 const yargs = require('yargs');
 const geocode = require('./geocode/geocode');
 
@@ -14,5 +13,10 @@ const argv = yargs.options({
   .alias('help', 'h')
   .argv;
 
-let geocodeCheck = new geocode(argv.address, request);
-geocodeCheck.geocodeAddress();
+geocode.geocodeAddress(argv.address, (errorMessage, results) => {
+  if (errorMessage) {
+    console.log(errorMessage);
+  } else {
+    console.log(JSON.stringify(results, undefined, 2))
+  }
+});
