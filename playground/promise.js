@@ -12,7 +12,10 @@ var asyncAdd = (a, b) => {
 
 asyncAdd(5,7).then((result) => {
   console.log('Result:', result);
-}, (errorMessage) => {
+  return asyncAdd(result, 33);
+}).then((result) => {
+  console.log('Should be 45', result);
+}).catch((errorMessage) => {
   console.log(errorMessage);
 });
 
