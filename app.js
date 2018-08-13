@@ -1,7 +1,6 @@
 const yargs = require('yargs');
 const geocode = require('./geocode/geocode');
 const weather = require('./weather/weather');
-require('dotenv').config();
 
 const argv = yargs.options({
   a: {
